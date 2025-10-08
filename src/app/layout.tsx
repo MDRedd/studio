@@ -1,3 +1,4 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
@@ -28,7 +29,8 @@ export default function RootLayout({
         height: auto;
         padding: 0;
         margin: 0;
-        transform: scale(1);
+        transform: scale(0.85);
+        transform-origin: top left;
         background-color: white !important;
         color: black !important;
         -webkit-print-color-adjust: exact;
