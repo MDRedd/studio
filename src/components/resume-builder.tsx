@@ -17,6 +17,7 @@ const initialData: ResumeSchema = {
     phone: '123-456-7890',
     address: '123 Tech Lane, Silicon Valley, CA',
     link: 'https://www.linkedin.com/in/janedoe',
+    github: 'https://github.com/janedoe',
   },
   summary: `Results-driven software engineer with over 5 years of experience in developing, testing, and maintaining web applications. Proficient in JavaScript, React, and Node.js, with a proven ability to deliver high-quality code and collaborate effectively in fast-paced Agile environments. Seeking to leverage expertise in front-end development to build innovative solutions.`,
   experience: [

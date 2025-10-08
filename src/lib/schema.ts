@@ -29,6 +29,7 @@ export const resumeSchema = z.object({
     phone: z.string().min(1, "Phone number is required"),
     address: z.string().min(1, "Address is required"),
     link: z.string().url("Must be a valid URL").optional().or(z.literal('')),
+    github: z.string().url("Must be a valid URL").optional().or(z.literal('')),
   }),
   summary: z.string().min(1, "Summary is required"),
   experience: z.array(experienceSchema),

@@ -2,7 +2,7 @@
 'use client';
 
 import { ResumeSchema } from "@/lib/schema";
-import { Briefcase, GraduationCap, Mail, Phone, MapPin, Link as LinkIcon, Lightbulb, Star } from "lucide-react";
+import { Briefcase, GraduationCap, Mail, Phone, MapPin, Link as LinkIcon, Lightbulb, Star, Github } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { cn } from "@/lib/utils";
@@ -58,7 +58,8 @@ const ClassicTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
                 {personalInfo.email && <div className="flex items-center gap-1"><Mail size={12} /> {personalInfo.email}</div>}
                 {personalInfo.phone && <div className="flex items-center gap-1"><Phone size={12} /> {personalInfo.phone}</div>}
                 {personalInfo.address && <div className="flex items-center gap-1"><MapPin size={12} /> {personalInfo.address}</div>}
-                {personalInfo.link && <a href={personalInfo.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-primary"><LinkIcon size={12} /> {personalInfo.link}</a>}
+                {personalInfo.link && <a href={personalInfo.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-primary"><LinkIcon size={12} /> LinkedIn</a>}
+                {personalInfo.github && <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-primary"><Github size={12} /> GitHub</a>}
                 </div>
             </header>
 
@@ -156,6 +157,7 @@ const ModernTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formDa
                 {personalInfo.email && <a href={`mailto:${personalInfo.email}`} className="hover:text-primary">{personalInfo.email}</a>}
                 {personalInfo.phone && <><span>&bull;</span><div>{personalInfo.phone}</div></>}
                 {personalInfo.link && <><span>&bull;</span><a href={personalInfo.link} target="_blank" rel="noopener noreferrer" className="hover:text-primary">LinkedIn</a></>}
+                {personalInfo.github && <><span>&bull;</span><a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="hover:text-primary">GitHub</a></>}
             </div>
         </header>
 
@@ -252,6 +254,7 @@ const ElegantTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
                         {personalInfo.phone && <div className="flex items-center gap-2"><Phone size={14} /> {personalInfo.phone}</div>}
                         {personalInfo.address && <div className="flex items-center gap-2"><MapPin size={14} /> {personalInfo.address}</div>}
                         {personalInfo.link && <a href={personalInfo.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary"><LinkIcon size={14} /> Portfolio</a>}
+                        {personalInfo.github && <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary"><Github size={14} /> GitHub</a>}
                     </div>
                 </section>
                  {education && education.length > 0 && (

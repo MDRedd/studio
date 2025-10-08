@@ -108,14 +108,21 @@ export function ResumeForm() {
                 <FormMessage />
               </FormItem>
             )} />
-          </div>
-          <FormField control={form.control} name="personalInfo.link" render={({ field }) => (
+             <FormField control={form.control} name="personalInfo.link" render={({ field }) => (
               <FormItem>
-                <FormLabel>LinkedIn/Portfolio URL</FormLabel>
+                <FormLabel>LinkedIn/Portfolio</FormLabel>
                 <FormControl><Input placeholder="https://linkedin.com/in/janedoe" {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
+            <FormField control={form.control} name="personalInfo.github" render={({ field }) => (
+              <FormItem>
+                <FormLabel>GitHub</FormLabel>
+                <FormControl><Input placeholder="https://github.com/janedoe" {...field} /></FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+          </div>
         </AccordionContent>
       </AccordionItem>
 
