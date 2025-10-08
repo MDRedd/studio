@@ -76,9 +76,9 @@ export function ResumeForm() {
 
   return (
     <Accordion type="multiple" defaultValue={["personal", "summary"]} className="w-full space-y-4">
-      <AccordionItem value="personal" className="bg-card border rounded-lg">
-        <AccordionTrigger className="p-4 font-headline text-lg"><User className="mr-2" />Personal Information</AccordionTrigger>
-        <AccordionContent className="p-4 space-y-4">
+      <AccordionItem value="personal" className="bg-card border-none rounded-lg shadow-sm">
+        <AccordionTrigger className="p-4 font-headline text-lg hover:no-underline"><User className="mr-2 h-5 w-5" />Personal Information</AccordionTrigger>
+        <AccordionContent className="p-4 pt-0 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField control={form.control} name="personalInfo.name" render={({ field }) => (
               <FormItem>
@@ -119,9 +119,9 @@ export function ResumeForm() {
         </AccordionContent>
       </AccordionItem>
 
-      <AccordionItem value="summary" className="bg-card border rounded-lg">
-        <AccordionTrigger className="p-4 font-headline text-lg"><Lightbulb className="mr-2" />Professional Summary</AccordionTrigger>
-        <AccordionContent className="p-4 space-y-2">
+      <AccordionItem value="summary" className="bg-card border-none rounded-lg shadow-sm">
+        <AccordionTrigger className="p-4 font-headline text-lg hover:no-underline"><Lightbulb className="mr-2 h-5 w-5" />Professional Summary</AccordionTrigger>
+        <AccordionContent className="p-4 pt-0 space-y-2">
           <FormField control={form.control} name="summary" render={({ field }) => (
             <FormItem>
               <FormLabel>Summary</FormLabel>
@@ -135,11 +135,11 @@ export function ResumeForm() {
         </AccordionContent>
       </AccordionItem>
 
-      <AccordionItem value="experience" className="bg-card border rounded-lg">
-        <AccordionTrigger className="p-4 font-headline text-lg"><Briefcase className="mr-2" />Work Experience</AccordionTrigger>
-        <AccordionContent className="p-4 space-y-4">
+      <AccordionItem value="experience" className="bg-card border-none rounded-lg shadow-sm">
+        <AccordionTrigger className="p-4 font-headline text-lg hover:no-underline"><Briefcase className="mr-2 h-5 w-5" />Work Experience</AccordionTrigger>
+        <AccordionContent className="p-4 pt-0 space-y-4">
           {experienceFields.map((field, index) => (
-            <div key={field.id} className="p-4 border rounded-md space-y-4 relative">
+            <div key={field.id} className="p-4 border rounded-md space-y-4 relative bg-background/50">
               <FormField control={form.control} name={`experience.${index}.title`} render={({ field }) => (
                 <FormItem>
                   <FormLabel>Job Title</FormLabel>
@@ -189,11 +189,11 @@ export function ResumeForm() {
         </AccordionContent>
       </AccordionItem>
 
-      <AccordionItem value="education" className="bg-card border rounded-lg">
-        <AccordionTrigger className="p-4 font-headline text-lg"><GraduationCap className="mr-2" />Education</AccordionTrigger>
-        <AccordionContent className="p-4 space-y-4">
+      <AccordionItem value="education" className="bg-card border-none rounded-lg shadow-sm">
+        <AccordionTrigger className="p-4 font-headline text-lg hover:no-underline"><GraduationCap className="mr-2 h-5 w-5" />Education</AccordionTrigger>
+        <AccordionContent className="p-4 pt-0 space-y-4">
           {educationFields.map((field, index) => (
-            <div key={field.id} className="p-4 border rounded-md space-y-4 relative">
+            <div key={field.id} className="p-4 border rounded-md space-y-4 relative bg-background/50">
                <Button type="button" variant="ghost" size="icon" className="absolute top-2 right-2" onClick={() => removeEducation(index)}><Trash2 className="h-4 w-4 text-destructive" /></Button>
               <FormField control={form.control} name={`education.${index}.institution`} render={({ field }) => (
                 <FormItem>
@@ -229,9 +229,9 @@ export function ResumeForm() {
         </AccordionContent>
       </AccordionItem>
 
-      <AccordionItem value="skills" className="bg-card border rounded-lg">
-        <AccordionTrigger className="p-4 font-headline text-lg"><Lightbulb className="mr-2" />Skills</AccordionTrigger>
-        <AccordionContent className="p-4 space-y-4">
+      <AccordionItem value="skills" className="bg-card border-none rounded-lg shadow-sm">
+        <AccordionTrigger className="p-4 font-headline text-lg hover:no-underline"><Lightbulb className="mr-2 h-5 w-5" />Skills</AccordionTrigger>
+        <AccordionContent className="p-4 pt-0 space-y-4">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {skillsFields.map((field, index) => (
                     <div key={field.id} className="flex items-center gap-2">

@@ -125,8 +125,9 @@ export function AtsChecker() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {atsResult.strengths.length > 0 && (
                                 <Card>
-                                    <CardHeader>
-                                      <CardTitle className="text-lg flex items-center"><CheckCircle className="mr-2 h-5 w-5 text-green-500" />Strengths</CardTitle>
+                                    <CardHeader className="flex-row items-center gap-2 space-y-0">
+                                      <CheckCircle className="h-5 w-5 text-green-500" />
+                                      <CardTitle className="text-lg">Strengths</CardTitle>
                                     </CardHeader>
                                     <CardContent>
                                       <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
@@ -137,8 +138,9 @@ export function AtsChecker() {
                             )}
                             {atsResult.suggestions.length > 0 && (
                                 <Card>
-                                  <CardHeader>
-                                    <CardTitle className="text-lg flex items-center"><Lightbulb className="mr-2 h-5 w-5 text-yellow-500" />Suggestions</CardTitle>
+                                  <CardHeader className="flex-row items-center gap-2 space-y-0">
+                                    <Lightbulb className="h-5 w-5 text-yellow-500" />
+                                    <CardTitle className="text-lg">Suggestions</CardTitle>
                                   </CardHeader>
                                   <CardContent>
                                       <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
@@ -185,8 +187,9 @@ export function AtsChecker() {
 
                             {jobFitResult.missingKeywords.length > 0 && (
                                 <Card>
-                                    <CardHeader>
-                                        <CardTitle className="text-lg flex items-center"><Search className="mr-2 h-5 w-5 text-blue-500" />Missing Keywords</CardTitle>
+                                    <CardHeader className="flex-row items-center gap-2 space-y-0">
+                                        <Search className="h-5 w-5 text-blue-500" />
+                                        <CardTitle className="text-lg">Missing Keywords</CardTitle>
                                     </CardHeader>
                                     <CardContent>
                                         <p className="text-sm text-muted-foreground mb-4">Consider adding these keywords from the job description to your resume to improve your score.</p>
