@@ -10,6 +10,15 @@ import { ResumePreview } from "@/components/resume-preview";
 import { ResumeToolbar } from "./resume-toolbar";
 import { useState } from "react";
 
+// The `uuid` library is not available, so we use a simple polyfill.
+// This is not cryptographically secure, but sufficient for unique IDs in this context.
+const simpleUuid = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+};
+
 const initialData: ResumeSchema = {
   personalInfo: {
     name: 'Jane Doe',
@@ -22,7 +31,7 @@ const initialData: ResumeSchema = {
   summary: `Results-driven software engineer with over 5 years of experience in developing, testing, and maintaining web applications. Proficient in JavaScript, React, and Node.js, with a proven ability to deliver high-quality code and collaborate effectively in fast-paced Agile environments. Seeking to leverage expertise in front-end development to build innovative solutions.`,
   experience: [
     {
-      id: crypto.randomUUID(),
+      id: simpleUuid(),
       company: 'Innovate Inc.',
       title: 'Senior Software Engineer',
       startDate: '2021-06-01',
@@ -30,7 +39,7 @@ const initialData: ResumeSchema = {
       description: '- Led the development of a new customer-facing dashboard using React and TypeScript, resulting in a 20% increase in user engagement\n- Mentored a team of 3 junior developers, providing code reviews and guidance on best practices, improving team productivity by 15%\n- Optimized application performance, reducing page load times by 30% and achieving a 95+ Lighthouse score'
     },
     {
-      id: crypto.randomUUID(),
+      id: simpleUuid(),
       company: 'Tech Solutions LLC',
       title: 'Software Engineer',
       startDate: '2019-01-15',
@@ -40,7 +49,7 @@ const initialData: ResumeSchema = {
   ],
   education: [
     {
-      id: crypto.randomUUID(),
+      id: simpleUuid(),
       institution: 'State University',
       degree: 'B.S. in Computer Science',
       major: '',
@@ -48,48 +57,29 @@ const initialData: ResumeSchema = {
     }
   ],
   skills: [
-    { id: crypto.randomUUID(), name: 'JavaScript (ES6+)' },
-    { id: crypto.randomUUID(), name: 'TypeScript' },
-    { id: crypto.randomUUID(), name: 'React' },
-    { id: crypto.randomUUID(), name: 'Node.js' },
-    { id: crypto.randomUUID(), name: 'Jest & React Testing Library' },
-    { id: crypto.randomUUID(), name: 'AWS (S3, Lambda, EC2)' },
-    { id: crypto.randomUUID(), name: 'CI/CD (Jenkins, GitHub Actions)' },
-    { id: crypto.randomUUID(), name: 'Agile Methodologies' }
+    { id: simpleUuid(), name: 'JavaScript (ES6+)' },
+    { id: simpleUuid(), name: 'TypeScript' },
+    { id: simpleUuid(), name: 'React' },
+    { id: simpleUuid(), name: 'Node.js' },
+    { id: simpleUuid(), name: 'Jest & React Testing Library' },
+    { id: simpleUuid(), name: 'AWS (S3, Lambda, EC2)' },
+    { id: simpleUuid(), name: 'CI/CD (Jenkins, GitHub Actions)' },
+    { id: simpleUuid(), name: 'Agile Methodologies' }
   ],
   projects: [
     {
-        id: crypto.randomUUID(),
+        id: simpleUuid(),
         name: 'Personal Portfolio Website',
         description: '- Developed a personal portfolio website using Next.js and Tailwind CSS\n- Deployed the website on Vercel with a custom domain\n- Integrated a contact form using serverless functions'
     }
   ]
 };
 
-
-// The `uuid` library is not available, so we use a simple polyfill.
-// This is not cryptographically secure, but sufficient for unique IDs in this context.
-const simpleUuid = () => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  };
-
-const initialDataWithIds: ResumeSchema = {
-    ...initialData,
-    experience: initialData.experience.map(exp => ({ ...exp, id: exp.id || simpleUuid() })),
-    education: initialData.education.map(edu => ({ ...edu, id: edu.id || simpleUuid() })),
-    skills: initialData.skills.map(skill => ({ ...skill, id: skill.id || simpleUuid() })),
-    projects: initialData.projects.map(project => ({ ...project, id: project.id || simpleUuid() })),
-};
-
-
 export default function ResumeBuilder() {
   const [template, setTemplate] = useState('classic');
   const form = useForm<ResumeSchema>({
     resolver: zodResolver(resumeSchema),
-    defaultValues: initialDataWithIds,
+    defaultValues: initialData,
     mode: "onBlur",
   });
 

@@ -13,6 +13,13 @@ import { generateSummary, generateExperienceSuggestion } from "@/lib/actions";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
+const simpleUuid = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+};
+
 export function ResumeForm() {
   const form = useFormContext<ResumeSchema>();
   const { toast } = useToast();
@@ -197,7 +204,7 @@ export function ResumeForm() {
                </div>
             </div>
           ))}
-          <Button type="button" variant="outline" onClick={() => appendExperience({ id: crypto.randomUUID(), company: '', title: '', startDate: '', endDate: '', description: '' })}><Plus className="mr-2 h-4 w-4" /> Add Experience</Button>
+          <Button type="button" variant="outline" onClick={() => appendExperience({ id: simpleUuid(), company: '', title: '', startDate: '', endDate: '', description: '' })}><Plus className="mr-2 h-4 w-4" /> Add Experience</Button>
         </AccordionContent>
       </AccordionItem>
 
@@ -223,7 +230,7 @@ export function ResumeForm() {
               )} />
             </div>
           ))}
-          <Button type="button" variant="outline" onClick={() => appendProject({ id: crypto.randomUUID(), name: '', description: '' })}><Plus className="mr-2 h-4 w-4" /> Add Project</Button>
+          <Button type="button" variant="outline" onClick={() => appendProject({ id: simpleUuid(), name: '', description: '' })}><Plus className="mr-2 h-4 w-4" /> Add Project</Button>
         </AccordionContent>
       </AccordionItem>
 
@@ -263,7 +270,7 @@ export function ResumeForm() {
               )} />
             </div>
           ))}
-          <Button type="button" variant="outline" onClick={() => appendEducation({ id: crypto.randomUUID(), institution: '', degree: '', major: '', graduationDate: '' })}><Plus className="mr-2 h-4 w-4" /> Add Education</Button>
+          <Button type="button" variant="outline" onClick={() => appendEducation({ id: simpleUuid(), institution: '', degree: '', major: '', graduationDate: '' })}><Plus className="mr-2 h-4 w-4" /> Add Education</Button>
         </AccordionContent>
       </AccordionItem>
 
@@ -283,7 +290,7 @@ export function ResumeForm() {
                     </div>
                 ))}
             </div>
-          <Button type="button" variant="outline" onClick={() => appendSkill({ id: crypto.randomUUID(), name: '' })}><Plus className="mr-2 h-4 w-4" /> Add Skill</Button>
+          <Button type="button" variant="outline" onClick={() => appendSkill({ id: simpleUuid(), name: '' })}><Plus className="mr-2 h-4 w-4" /> Add Skill</Button>
         </AccordionContent>
       </AccordionItem>
 
