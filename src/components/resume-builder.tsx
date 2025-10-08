@@ -52,8 +52,18 @@ const initialData: ResumeSchema = {
     { id: crypto.randomUUID(), name: 'TypeScript' },
     { id: crypto.randomUUID(), name: 'React' },
     { id: crypto.randomUUID(), name: 'Node.js' },
-    { id: crypto.randomUUID(), name: 'Agile Methodologies' },
-    { id: crypto.randomUUID(), name: 'UI/UX Design Principles' }
+    { id: crypto.randomUUID(), name: 'Jest' },
+    { id: crypto.randomUUID(), name: 'React Testing Library' },
+    { id: crypto.randomUUID(), name: 'AWS' },
+    { id: crypto.randomUUID(), name: 'CI/CD' },
+    { id: crypto.randomUUID(), name: 'Agile Methodologies' }
+  ],
+  projects: [
+    {
+        id: crypto.randomUUID(),
+        name: 'Personal Portfolio Website',
+        description: '- Developed a personal portfolio website using Next.js and Tailwind CSS.\n- Deployed the website on Vercel with a custom domain.\n- Integrated a contact form using serverless functions.'
+    }
   ]
 };
 
@@ -72,6 +82,7 @@ const initialDataWithIds: ResumeSchema = {
     experience: initialData.experience.map(exp => ({ ...exp, id: exp.id || simpleUuid() })),
     education: initialData.education.map(edu => ({ ...edu, id: edu.id || simpleUuid() })),
     skills: initialData.skills.map(skill => ({ ...skill, id: skill.id || simpleUuid() })),
+    projects: initialData.projects.map(project => ({ ...project, id: project.id || simpleUuid() })),
 };
 
 

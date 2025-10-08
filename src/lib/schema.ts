@@ -22,6 +22,12 @@ export const skillSchema = z.object({
   name: z.string().min(1, "Skill cannot be empty"),
 });
 
+export const projectSchema = z.object({
+    id: z.string().optional(),
+    name: z.string().min(1, "Project name is required"),
+    description: z.string().min(1, "Description is required"),
+});
+
 export const resumeSchema = z.object({
   personalInfo: z.object({
     name: z.string().min(1, "Full name is required"),
@@ -35,6 +41,7 @@ export const resumeSchema = z.object({
   experience: z.array(experienceSchema),
   education: z.array(educationSchema),
   skills: z.array(skillSchema),
+  projects: z.array(projectSchema),
 });
 
 export type ResumeSchema = z.infer<typeof resumeSchema>;

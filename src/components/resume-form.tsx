@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Briefcase, GraduationCap, Lightbulb, Plus, Sparkles, Trash2, User } from "lucide-react";
+import { Briefcase, GraduationCap, Lightbulb, Plus, Sparkles, Trash2, User, FolderGit2 } from "lucide-react";
 import { generateSummary, generateExperienceSuggestion } from "@/lib/actions";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -31,6 +31,11 @@ export function ResumeForm() {
   const { fields: skillsFields, append: appendSkill, remove: removeSkill } = useFieldArray({
     control: form.control,
     name: "skills",
+  });
+
+  const { fields: projectFields, append: appendProject, remove: removeProject } = useFieldArray({
+    control: form.control,
+    name: "projects",
   });
 
   const handleGenerateSummary = async () => {
@@ -193,6 +198,32 @@ export function ResumeForm() {
             </div>
           ))}
           <Button type="button" variant="outline" onClick={() => appendExperience({ id: crypto.randomUUID(), company: '', title: '', startDate: '', endDate: '', description: '' })}><Plus className="mr-2 h-4 w-4" /> Add Experience</Button>
+        </AccordionContent>
+      </AccordionItem>
+
+      <AccordionItem value="projects" className="bg-card border-none rounded-lg shadow-sm">
+        <AccordionTrigger className="p-4 font-headline text-lg hover:no-underline"><FolderGit2 className="mr-2 h-5 w-5" />Projects</AccordionTrigger>
+        <AccordionContent className="p-4 pt-0 space-y-4">
+          {projectFields.map((field, index) => (
+            <div key={field.id} className="p-4 border rounded-md space-y-4 relative bg-background/50">
+              <Button type="button" variant="ghost" size="icon" className="absolute top-2 right-2" onClick={() => removeProject(index)}><Trash2 className="h-4 w-4 text-destructive" /></Button>
+              <FormField control={form.control} name={`projects.${index}.name`} render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Project Name</FormLabel>
+                  <FormControl><Input placeholder="E-commerce Website" {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField control={form.control} name={`projects.${index}.description`} render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl><Textarea placeholder="Describe your project..." {...field} rows={5} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+            </div>
+          ))}
+          <Button type="button" variant="outline" onClick={() => appendProject({ id: crypto.randomUUID(), name: '', description: '' })}><Plus className="mr-2 h-4 w-4" /> Add Project</Button>
         </AccordionContent>
       </AccordionItem>
 

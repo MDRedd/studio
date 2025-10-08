@@ -2,7 +2,7 @@
 'use client';
 
 import { ResumeSchema } from "@/lib/schema";
-import { Briefcase, GraduationCap, Mail, Phone, MapPin, Link as LinkIcon, Lightbulb, Star, Github } from "lucide-react";
+import { Briefcase, GraduationCap, Mail, Phone, MapPin, Link as LinkIcon, Lightbulb, Star, Github, FolderGit2 } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { cn } from "@/lib/utils";
@@ -13,7 +13,7 @@ interface ResumePreviewProps {
 }
 
 export function ResumePreview({ formData, template = 'classic' }: ResumePreviewProps) {
-  const { personalInfo, summary, experience, education, skills } = formData;
+  const { personalInfo, summary, experience, education, skills, projects } = formData;
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return '';
@@ -40,9 +40,9 @@ export function ResumePreview({ formData, template = 'classic' }: ResumePreviewP
 }
 
 const ClassicTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formData }) => {
-    const { personalInfo, summary, experience, education, skills } = formData;
+    const { personalInfo, summary, experience, education, skills, projects } = formData;
     const formatDate = (dateString?: string) => {
-      if (!dateString) return '';
+      if (!dateString) return 'Present';
       try {
           return new Date(dateString).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
       } catch {
@@ -85,12 +85,30 @@ const ClassicTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
                             <div className="flex justify-between items-baseline">
                                 <h3 className="font-bold font-headline">{exp.title || "Job Title"}</h3>
                                 <div className="text-xs text-muted-foreground">
-                                    {formatDate(exp.startDate)} - {exp.endDate ? formatDate(exp.endDate) : 'Present'}
+                                    {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
                                 </div>
                             </div>
                             <p className="text-muted-foreground italic">{exp.company || "Company Name"}</p>
                             <ul className="mt-2 list-disc list-inside text-sm space-y-1 whitespace-pre-wrap">
                                 {exp.description?.split('\n').map((line, i) => line.trim() && <li key={i}>{line.replace(/^- /, '')}</li>)}
+                            </ul>
+                        </div>
+                        ))}
+                    </div>
+                    </section>
+                )}
+                {projects && projects.length > 0 && (
+                    <section className="mb-6">
+                    <h2 className="flex items-center gap-2 text-xl font-bold font-headline border-b-2 border-primary/50 pb-1 mb-3 text-primary">
+                        <FolderGit2 />
+                        Projects
+                    </h2>
+                    <div className="space-y-4">
+                        {projects.map((project, index) => (
+                        <div key={project.id || index}>
+                            <h3 className="font-bold font-headline">{project.name || "Project Name"}</h3>
+                            <ul className="mt-2 list-disc list-inside text-sm space-y-1 whitespace-pre-wrap">
+                                {project.description?.split('\n').map((line, i) => line.trim() && <li key={i}>{line.replace(/^- /, '')}</li>)}
                             </ul>
                         </div>
                         ))}
@@ -139,9 +157,9 @@ const ClassicTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
 };
 
 const ModernTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formData }) => {
-    const { personalInfo, summary, experience, education, skills } = formData;
+    const { personalInfo, summary, experience, education, skills, projects } = formData;
     const formatDate = (dateString?: string) => {
-      if (!dateString) return '';
+      if (!dateString) return 'Present';
       try {
           return new Date(dateString).toLocaleDateString('en-US', { year: 'numeric' });
       } catch {
@@ -196,7 +214,7 @@ const ModernTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formDa
             </div>
             <div className="col-span-8">
                 {experience && experience.length > 0 && (
-                    <section>
+                    <section className="mb-8">
                     <h2 className="text-sm font-bold uppercase tracking-widest text-primary mb-3">Experience</h2>
                     <div className="space-y-6">
                         {experience.map((exp, index) => (
@@ -207,7 +225,7 @@ const ModernTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formDa
                                     <p className="text-sm text-gray-600">{exp.company || "Company Name"}</p>
                                 </div>
                                 <div className="text-xs text-gray-500">
-                                    {formatDate(exp.startDate)} - {exp.endDate ? formatDate(exp.endDate) : 'Present'}
+                                    {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
                                 </div>
                             </div>
                             <ul className="mt-2 text-sm text-gray-600 leading-6 list-disc list-inside whitespace-pre-wrap">
@@ -218,6 +236,21 @@ const ModernTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formDa
                     </div>
                     </section>
                 )}
+                {projects && projects.length > 0 && (
+                     <section>
+                     <h2 className="text-sm font-bold uppercase tracking-widest text-primary mb-3">Projects</h2>
+                     <div className="space-y-6">
+                         {projects.map((project, index) => (
+                         <div key={project.id || index} className="relative pl-6 before:absolute before:left-0 before:top-1.5 before:w-2 before:h-2 before:bg-primary before:rounded-full">
+                             <h3 className="font-semibold text-gray-800">{project.name || "Project Name"}</h3>
+                             <ul className="mt-2 text-sm text-gray-600 leading-6 list-disc list-inside whitespace-pre-wrap">
+                                 {project.description?.split('\n').map((line, i) => line.trim() && <li key={i}>{line.replace(/^- /, '')}</li>)}
+                             </ul>
+                         </div>
+                         ))}
+                     </div>
+                     </section>
+                )}
             </div>
         </main>
       </div>
@@ -225,9 +258,9 @@ const ModernTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formDa
 };
 
 const ElegantTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formData }) => {
-    const { personalInfo, summary, experience, education, skills } = formData;
+    const { personalInfo, summary, experience, education, skills, projects } = formData;
     const formatDate = (dateString?: string, format: 'short' | 'long' = 'long') => {
-      if (!dateString) return '';
+      if (!dateString) return 'Present';
       try {
         if (format === 'short') {
           return new Date(dateString).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
@@ -290,7 +323,7 @@ const ElegantTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
                     </section>
                 )}
                 {experience && experience.length > 0 && (
-                    <section>
+                    <section className="mb-8">
                     <h2 className="text-lg font-semibold border-b border-gray-200 pb-1 mb-3 text-gray-600 tracking-widest">EXPERIENCE</h2>
                     <div className="space-y-5">
                         {experience.map((exp, index) => (
@@ -298,7 +331,7 @@ const ElegantTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
                             <h3 className="text-md font-bold text-gray-800">{exp.title || "Job Title"}</h3>
                             <div className="flex justify-between items-baseline text-sm text-primary">
                                 <span>{exp.company || "Company Name"}</span>
-                                <span>{formatDate(exp.startDate, 'short')} - {exp.endDate ? formatDate(exp.endDate, 'short') : 'Present'}</span>
+                                <span>{formatDate(exp.startDate, 'short')} - {formatDate(exp.endDate, 'short')}</span>
                             </div>
                             <div className="mt-2 text-sm leading-relaxed whitespace-pre-wrap">
                                 {exp.description}
@@ -306,6 +339,21 @@ const ElegantTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
                         </div>
                         ))}
                     </div>
+                    </section>
+                )}
+                 {projects && projects.length > 0 && (
+                    <section>
+                        <h2 className="text-lg font-semibold border-b border-gray-200 pb-1 mb-3 text-gray-600 tracking-widest">PROJECTS</h2>
+                        <div className="space-y-5">
+                            {projects.map((project, index) => (
+                            <div key={project.id || index}>
+                                <h3 className="text-md font-bold text-gray-800">{project.name || "Project Name"}</h3>
+                                <div className="mt-2 text-sm leading-relaxed whitespace-pre-wrap">
+                                    {project.description}
+                                </div>
+                            </div>
+                            ))}
+                        </div>
                     </section>
                 )}
             </div>
