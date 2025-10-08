@@ -86,12 +86,12 @@ export default function ResumeBuilder() {
 
   return (
     <Form {...form}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-4 md:py-8">
         <div>
           <ResumeForm />
         </div>
         <div className="relative">
-          <div className="sticky top-24">
+          <div className="lg:sticky top-24">
             <div className="flex flex-col gap-4">
               <ResumeToolbar selectedTemplate={template} onTemplateChange={setTemplate} />
               <div className="overflow-auto max-h-[calc(100vh-12rem)] rounded-lg shadow-2xl printable-area bg-card">

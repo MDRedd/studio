@@ -9,7 +9,7 @@ export default function Home() {
           <p className="text-sm text-muted-foreground">Craft your perfect resume with the power of AI.</p>
         </div>
       </header>
-      <main className="container mx-auto">
+      <main className="container mx-auto p-4 md:p-0">
         <ResumeBuilder />
       </main>
     </div>
