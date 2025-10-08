@@ -13,7 +13,7 @@ interface ResumeToolbarProps {
 export function ResumeToolbar({ selectedTemplate, onTemplateChange }: ResumeToolbarProps) {
 
   return (
-    <div className="p-4 bg-card/80 backdrop-blur-sm border rounded-lg flex items-center justify-between no-print shadow-md">
+    <div className="p-4 bg-card/80 backdrop-blur-sm border rounded-lg flex items-center justify-between shadow-md">
         <div className="flex items-center gap-2">
             <Select value={selectedTemplate} onValueChange={onTemplateChange}>
                 <SelectTrigger className="w-[180px]">
