@@ -1,7 +1,7 @@
 
 'use client';
 
-import { UseFormReturn, useFieldArray } from "react-hook-form";
+import { UseFormReturn, useFieldArray, useFormContext } from "react-hook-form";
 import { ResumeSchema } from "@/lib/schema";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -13,11 +13,8 @@ import { generateSummary, generateExperienceSuggestion } from "@/lib/actions";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
-interface ResumeFormProps {
-  form: UseFormReturn<ResumeSchema>;
-}
-
-export function ResumeForm({ form }: ResumeFormProps) {
+export function ResumeForm() {
+  const form = useFormContext<ResumeSchema>();
   const { toast } = useToast();
   const [isSummaryLoading, setSummaryLoading] = useState(false);
 

@@ -8,7 +8,6 @@ import { Form } from "@/components/ui/form";
 import { ResumeForm } from "@/components/resume-form";
 import { ResumePreview } from "@/components/resume-preview";
 import { ResumeToolbar } from "./resume-toolbar";
-import { v4 as uuidv4 } from 'uuid';
 
 const initialData: ResumeSchema = {
   personalInfo: {
@@ -21,7 +20,7 @@ const initialData: ResumeSchema = {
   summary: `Results-driven software engineer with over 5 years of experience in developing, testing, and maintaining web applications. Proficient in JavaScript, React, and Node.js, with a proven ability to deliver high-quality code and collaborate effectively in fast-paced Agile environments. Seeking to leverage expertise in front-end development to build innovative solutions.`,
   experience: [
     {
-      id: uuidv4(),
+      id: crypto.randomUUID(),
       company: 'Innovate Inc.',
       title: 'Senior Software Engineer',
       startDate: '2021-06-01',
@@ -29,7 +28,7 @@ const initialData: ResumeSchema = {
       description: '- Led the development of a new customer-facing dashboard using React and TypeScript, resulting in a 20% increase in user engagement.\n- Mentored junior developers, providing code reviews and guidance on best practices.\n- Optimized application performance, reducing page load times by 30%.'
     },
     {
-      id: uuidv4(),
+      id: crypto.randomUUID(),
       company: 'Tech Solutions LLC',
       title: 'Software Engineer',
       startDate: '2019-01-15',
@@ -39,7 +38,7 @@ const initialData: ResumeSchema = {
   ],
   education: [
     {
-      id: uuidv4(),
+      id: crypto.randomUUID(),
       institution: 'State University',
       degree: 'B.S. in Computer Science',
       major: 'Computer Science',
@@ -47,12 +46,12 @@ const initialData: ResumeSchema = {
     }
   ],
   skills: [
-    { id: uuidv4(), name: 'JavaScript (ES6+)' },
-    { id: uuidv4(), name: 'TypeScript' },
-    { id: uuidv4(), name: 'React' },
-    { id: uuidv4(), name: 'Node.js' },
-    { id: uuidv4(), name: 'Agile Methodologies' },
-    { id: uuidv4(), name: 'UI/UX Design Principles' }
+    { id: crypto.randomUUID(), name: 'JavaScript (ES6+)' },
+    { id: crypto.randomUUID(), name: 'TypeScript' },
+    { id: crypto.randomUUID(), name: 'React' },
+    { id: crypto.randomUUID(), name: 'Node.js' },
+    { id: crypto.randomUUID(), name: 'Agile Methodologies' },
+    { id: crypto.randomUUID(), name: 'UI/UX Design Principles' }
   ]
 };
 
@@ -87,7 +86,7 @@ export default function ResumeBuilder() {
     <Form {...form}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8">
         <div>
-          <ResumeForm form={form} />
+          <ResumeForm />
         </div>
         <div className="relative">
           <div className="sticky top-24">
