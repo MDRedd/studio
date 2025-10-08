@@ -27,7 +27,7 @@ const initialData: ResumeSchema = {
       title: 'Senior Software Engineer',
       startDate: '2021-06-01',
       endDate: 'Present',
-      description: '- Led the development of a new customer-facing dashboard using React and TypeScript, resulting in a 20% increase in user engagement.\n- Mentored junior developers, providing code reviews and guidance on best practices.\n- Optimized application performance, reducing page load times by 30%.'
+      description: '- Led the development of a new customer-facing dashboard using React and TypeScript, resulting in a 20% increase in user engagement\n- Mentored junior developers, providing code reviews and guidance on best practices\n- Optimized application performance, reducing page load times by 30%'
     },
     {
       id: crypto.randomUUID(),
@@ -35,7 +35,7 @@ const initialData: ResumeSchema = {
       title: 'Software Engineer',
       startDate: '2019-01-15',
       endDate: '2021-05-30',
-      description: '- Developed and maintained features for a large-scale e-commerce platform using React and Redux.\n- Collaborated with UX/UI designers to implement responsive and user-friendly interfaces.\n- Wrote unit and integration tests to ensure code quality and reliability.'
+      description: '- Developed and maintained features for a large-scale e-commerce platform using React and Redux\n- Collaborated with UX/UI designers to implement responsive and user-friendly interfaces\n- Wrote unit and integration tests to ensure code quality and reliability'
     }
   ],
   education: [
@@ -43,7 +43,7 @@ const initialData: ResumeSchema = {
       id: crypto.randomUUID(),
       institution: 'State University',
       degree: 'B.S. in Computer Science',
-      major: 'Computer Science',
+      major: '',
       graduationDate: '2019-01-10'
     }
   ],
@@ -62,7 +62,7 @@ const initialData: ResumeSchema = {
     {
         id: crypto.randomUUID(),
         name: 'Personal Portfolio Website',
-        description: '- Developed a personal portfolio website using Next.js and Tailwind CSS.\n- Deployed the website on Vercel with a custom domain.\n- Integrated a contact form using serverless functions.'
+        description: '- Developed a personal portfolio website using Next.js and Tailwind CSS\n- Deployed the website on Vercel with a custom domain\n- Integrated a contact form using serverless functions'
     }
   ]
 };
