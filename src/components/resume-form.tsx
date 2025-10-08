@@ -24,6 +24,7 @@ export function ResumeForm() {
   const form = useFormContext<ResumeSchema>();
   const { toast } = useToast();
   const [isSummaryLoading, setSummaryLoading] = useState(false);
+  const [experienceSuggestionLoading, setExperienceSuggestionLoading] = useState<number | null>(null);
 
   const { fields: experienceFields, append: appendExperience, remove: removeExperience } = useFieldArray({
     control: form.control,
@@ -70,10 +71,11 @@ export function ResumeForm() {
   };
 
   const handleGenerateExperience = async (index: number) => {
-    const experience = form.getValues(`experience.${index}`);
+    setExperienceSuggestionLoading(index);
+    const formData = form.getValues();
     
     try {
-      const result = await generateExperienceSuggestion({ experience: [experience] });
+      const result = await generateExperienceSuggestion(formData, index);
       if (result?.experienceSuggestions?.[0]) {
         form.setValue(`experience.${index}.description`, result.experienceSuggestions[0]);
         toast({ title: "Suggestion Added", description: "AI suggestion for experience has been applied." });
@@ -82,6 +84,8 @@ export function ResumeForm() {
       }
     } catch(error) {
         toast({ variant: 'destructive', title: "Error", description: "Failed to generate experience suggestion." });
+    } finally {
+        setExperienceSuggestionLoading(null);
     }
   }
 
@@ -197,8 +201,8 @@ export function ResumeForm() {
                 </FormItem>
               )} />
                <div className="flex justify-between items-center">
-                 <Button type="button" variant="outline" size="sm" onClick={() => handleGenerateExperience(index)}>
-                    <Sparkles className="mr-2 h-4 w-4" /> Suggest with AI
+                 <Button type="button" variant="outline" size="sm" onClick={() => handleGenerateExperience(index)} disabled={experienceSuggestionLoading === index}>
+                    {experienceSuggestionLoading === index ? 'Generating...' : <><Sparkles className="mr-2 h-4 w-4" /> Suggest with AI</>}
                  </Button>
                  <Button type="button" variant="ghost" size="sm" onClick={() => removeExperience(index)}><Trash2 className="h-4 w-4 text-destructive" /></Button>
                </div>

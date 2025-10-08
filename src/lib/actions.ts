@@ -27,9 +27,13 @@ export async function generateSummary(input: z.infer<typeof generateSummaryActio
   }
 }
 
-export async function generateExperienceSuggestion(input: GenerateResumeContentInput): Promise<GenerateResumeContentOutput | null> {
+export async function generateExperienceSuggestion(input: ResumeSchema, experienceIndex: number): Promise<GenerateResumeContentOutput | null> {
     try {
-      const result = await generateResumeContent(input);
+      const aiInput: GenerateResumeContentInput = {
+        ...input,
+        targetExperienceIndex: experienceIndex,
+      }
+      const result = await generateResumeContent(aiInput);
       return result;
     } catch (error) {
       console.error("Error generating experience suggestion:", error);

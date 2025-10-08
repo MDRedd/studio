@@ -3,6 +3,15 @@ import { z } from 'zod';
 
 // Schema for generate-resume-content.ts
 export const GenerateResumeContentInputSchema = z.object({
+  personalInfo: z.object({
+    name: z.string(),
+    email: z.string(),
+    phone: z.string(),
+    address: z.string(),
+    link: z.string().optional(),
+    github: z.string().optional(),
+  }).optional(),
+  summary: z.string().optional(),
   education: z.array(
     z.object({
       institution: z.string().describe('The name of the educational institution.'),
@@ -21,8 +30,10 @@ export const GenerateResumeContentInputSchema = z.object({
       description: z.string().describe('A description of the job responsibilities and achievements.'),
     })
   ).optional().describe('Work experience history.'),
-  skills: z.array(z.string()).optional().describe('A list of skills.'),
+  skills: z.array(z.object({ id: z.string().optional(), name: z.string()})).optional().describe('A list of skills.'),
+  projects: z.array(z.object({ id: z.string().optional(), name: z.string(), description: z.string()})).optional().describe('A list of projects.'),
   templateStyle: z.string().optional().describe('Style of the resume template.'),
+  targetExperienceIndex: z.number().optional().describe('The index of the experience to generate a description for.'),
 }).describe('User provided details for resume generation.');
 
 export type GenerateResumeContentInput = z.infer<typeof GenerateResumeContentInputSchema>;
