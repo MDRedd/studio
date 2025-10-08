@@ -10,13 +10,11 @@ import { ResumePreview } from "@/components/resume-preview";
 import { ResumeToolbar } from "./resume-toolbar";
 import { useState } from "react";
 
-// The `uuid` library is not available, so we use a simple polyfill.
-// This is not cryptographically secure, but sufficient for unique IDs in this context.
 const simpleUuid = () => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
 };
 
 const initialData: ResumeSchema = {
@@ -98,10 +96,10 @@ export default function ResumeBuilder() {
           <ResumeForm />
         </div>
         <div className="relative">
-          <div className="lg:sticky top-24">
-            <div className="flex flex-col gap-4">
-              <ResumeToolbar selectedTemplate={template} onTemplateChange={setTemplate} />
-              <div className="overflow-auto max-h-[calc(100vh-12rem)] rounded-lg shadow-2xl bg-card printable-area">
+          <div className="lg:sticky top-24 flex flex-col gap-4">
+            <ResumeToolbar selectedTemplate={template} onTemplateChange={setTemplate} />
+            <div className="overflow-auto max-h-[calc(100vh-12rem)] rounded-lg shadow-2xl bg-card">
+              <div className="printable-area">
                 <ResumePreview formData={watchedData} template={template} />
               </div>
             </div>
