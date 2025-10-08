@@ -14,6 +14,7 @@ import { CheckCircle, AlertTriangle, Lightbulb, Bot, Search, FileText } from 'lu
 import { Textarea } from './ui/textarea';
 import { Badge } from './ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { ScrollArea } from './ui/scroll-area';
 
 export function AtsChecker() {
   const [isOpen, setIsOpen] = useState(false);
@@ -104,6 +105,7 @@ export function AtsChecker() {
                 <TabsTrigger value="job-fit"><Search className="mr-2 h-4 w-4" />Job Fit</TabsTrigger>
             </TabsList>
             <TabsContent value="ats-score" className="py-4">
+              <ScrollArea className="h-[60vh] pr-6">
                  <div className="space-y-4">
                     <p className="text-sm text-muted-foreground">
                         Analyze your resume's compatibility with Applicant Tracking Systems (ATS) and get suggestions for improvement.
@@ -159,8 +161,10 @@ export function AtsChecker() {
                         </div>
                     )}
                 </div>
+              </ScrollArea>
             </TabsContent>
             <TabsContent value="job-fit" className="py-4">
+              <ScrollArea className="h-[60vh] pr-6">
                 <div className="space-y-4">
                     <p className="text-sm text-muted-foreground">
                         Paste a job description below to see how well your resume matches, and get a list of missing keywords.
@@ -211,6 +215,7 @@ export function AtsChecker() {
                         </div>
                      )}
                 </div>
+              </ScrollArea>
             </TabsContent>
         </Tabs>
       </DialogContent>
