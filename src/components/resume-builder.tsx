@@ -27,7 +27,7 @@ const initialData: ResumeSchema = {
       title: 'Senior Software Engineer',
       startDate: '2021-06-01',
       endDate: 'Present',
-      description: '- Led the development of a new customer-facing dashboard using React and TypeScript, resulting in a 20% increase in user engagement\n- Mentored junior developers, providing code reviews and guidance on best practices\n- Optimized application performance, reducing page load times by 30%'
+      description: '- Led the development of a new customer-facing dashboard using React and TypeScript, resulting in a 20% increase in user engagement\n- Mentored a team of 3 junior developers, providing code reviews and guidance on best practices, improving team productivity by 15%\n- Optimized application performance, reducing page load times by 30% and achieving a 95+ Lighthouse score'
     },
     {
       id: crypto.randomUUID(),
@@ -35,7 +35,7 @@ const initialData: ResumeSchema = {
       title: 'Software Engineer',
       startDate: '2019-01-15',
       endDate: '2021-05-30',
-      description: '- Developed and maintained features for a large-scale e-commerce platform using React and Redux\n- Collaborated with UX/UI designers to implement responsive and user-friendly interfaces\n- Wrote unit and integration tests to ensure code quality and reliability'
+      description: '- Developed and maintained features for a large-scale e-commerce platform with over 1 million monthly active users using React and Redux\n- Collaborated with UX/UI designers to implement responsive interfaces, improving mobile conversion rates by 10%\n- Wrote unit and integration tests, increasing code coverage from 70% to over 90% across the main application'
     }
   ],
   education: [
@@ -52,10 +52,9 @@ const initialData: ResumeSchema = {
     { id: crypto.randomUUID(), name: 'TypeScript' },
     { id: crypto.randomUUID(), name: 'React' },
     { id: crypto.randomUUID(), name: 'Node.js' },
-    { id: crypto.randomUUID(), name: 'Jest' },
-    { id: crypto.randomUUID(), name: 'React Testing Library' },
-    { id: crypto.randomUUID(), name: 'AWS' },
-    { id: crypto.randomUUID(), name: 'CI/CD' },
+    { id: crypto.randomUUID(), name: 'Jest & React Testing Library' },
+    { id: crypto.randomUUID(), name: 'AWS (S3, Lambda, EC2)' },
+    { id: crypto.randomUUID(), name: 'CI/CD (Jenkins, GitHub Actions)' },
     { id: crypto.randomUUID(), name: 'Agile Methodologies' }
   ],
   projects: [
