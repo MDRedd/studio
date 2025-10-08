@@ -8,6 +8,7 @@ import { Form } from "@/components/ui/form";
 import { ResumeForm } from "@/components/resume-form";
 import { ResumePreview } from "@/components/resume-preview";
 import { ResumeToolbar } from "./resume-toolbar";
+import { useState } from "react";
 
 const initialData: ResumeSchema = {
   personalInfo: {
@@ -74,6 +75,7 @@ const initialDataWithIds: ResumeSchema = {
 
 
 export default function ResumeBuilder() {
+  const [template, setTemplate] = useState('classic');
   const form = useForm<ResumeSchema>({
     resolver: zodResolver(resumeSchema),
     defaultValues: initialDataWithIds,
@@ -91,9 +93,9 @@ export default function ResumeBuilder() {
         <div className="relative">
           <div className="sticky top-24">
             <div className="flex flex-col gap-4">
-              <ResumeToolbar />
+              <ResumeToolbar selectedTemplate={template} onTemplateChange={setTemplate} />
               <div className="overflow-auto max-h-[calc(100vh-12rem)] rounded-lg shadow-2xl printable-area bg-card">
-                <ResumePreview formData={watchedData} />
+                <ResumePreview formData={watchedData} template={template} />
               </div>
             </div>
           </div>

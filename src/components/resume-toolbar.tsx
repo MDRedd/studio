@@ -5,7 +5,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Download } from "lucide-react";
 import { AtsChecker } from "./ats-checker";
 
-export function ResumeToolbar() {
+interface ResumeToolbarProps {
+  selectedTemplate: string;
+  onTemplateChange: (template: string) => void;
+}
+
+export function ResumeToolbar({ selectedTemplate, onTemplateChange }: ResumeToolbarProps) {
 
   const handleDownload = () => {
     window.print();
@@ -14,14 +19,14 @@ export function ResumeToolbar() {
   return (
     <div className="p-4 bg-card/80 backdrop-blur-sm border rounded-lg flex items-center justify-between no-print shadow-md">
         <div className="flex items-center gap-2">
-            <Select defaultValue="classic" disabled>
+            <Select value={selectedTemplate} onValueChange={onTemplateChange}>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Select Template" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="classic">Classic Professional</SelectItem>
-                    <SelectItem value="modern" disabled>Modern Minimalist</SelectItem>
-                    <SelectItem value="creative" disabled>Creative Bold</SelectItem>
+                    <SelectItem value="classic">Classic</SelectItem>
+                    <SelectItem value="modern">Modern</SelectItem>
+                    <SelectItem value="elegant">Elegant</SelectItem>
                 </SelectContent>
             </Select>
             <AtsChecker />
