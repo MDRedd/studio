@@ -12,10 +12,6 @@ interface ResumeToolbarProps {
 
 export function ResumeToolbar({ selectedTemplate, onTemplateChange }: ResumeToolbarProps) {
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   return (
     <div className="p-4 bg-card/80 backdrop-blur-sm border rounded-lg flex items-center justify-between no-print shadow-md">
         <div className="flex items-center gap-2">
@@ -31,7 +27,7 @@ export function ResumeToolbar({ selectedTemplate, onTemplateChange }: ResumeTool
             </Select>
             <AtsChecker />
         </div>
-      <Button onClick={handlePrint}>
+      <Button onClick={() => window.print()}>
         <Printer className="mr-2 h-4 w-4" />
         Print / Save PDF
       </Button>
