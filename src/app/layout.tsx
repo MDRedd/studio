@@ -41,6 +41,10 @@ export default function RootLayout({
         color: black !important;
         background-color: transparent !important;
       }
+      .overflow-auto {
+        height: auto !important;
+        overflow: visible !important;
+      }
       @page {
         size: A4;
         margin: 20mm;
