@@ -2,7 +2,7 @@
 'use client';
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Download } from "lucide-react";
+import { Printer } from "lucide-react";
 import { AtsChecker } from "./ats-checker";
 
 interface ResumeToolbarProps {
@@ -12,7 +12,7 @@ interface ResumeToolbarProps {
 
 export function ResumeToolbar({ selectedTemplate, onTemplateChange }: ResumeToolbarProps) {
 
-  const handleDownload = () => {
+  const handlePrint = () => {
     window.print();
   };
 
@@ -31,9 +31,9 @@ export function ResumeToolbar({ selectedTemplate, onTemplateChange }: ResumeTool
             </Select>
             <AtsChecker />
         </div>
-      <Button onClick={handleDownload}>
-        <Download className="mr-2 h-4 w-4" />
-        Download PDF
+      <Button onClick={handlePrint}>
+        <Printer className="mr-2 h-4 w-4" />
+        Print / Save PDF
       </Button>
     </div>
   );

@@ -35,8 +35,10 @@ const initialData: ResumeSchema = {
       company: 'Innovate Inc.',
       title: 'Senior Software Engineer',
       startDate: '2021-06-01',
-      endDate: 'Present',
-      description: '- Led the development of a new customer-facing dashboard using React and TypeScript, resulting in a 20% increase in user engagement\n- Mentored a team of 3 junior developers, providing code reviews and guidance on best practices, improving team productivity by 15%\n- Optimized application performance, reducing page load times by 30% and achieving a 95+ Lighthouse score'
+      endDate: '',
+      description: `- Led the development of a new customer-facing dashboard using React and TypeScript, resulting in a 20% increase in user engagement
+- Mentored a team of 3 junior developers, providing code reviews and guidance on best practices, improving team productivity by 15%
+- Optimized application performance, reducing page load times by 30% and achieving a 95+ Lighthouse score`
     },
     {
       id: simpleUuid(),
@@ -44,7 +46,9 @@ const initialData: ResumeSchema = {
       title: 'Software Engineer',
       startDate: '2019-01-15',
       endDate: '2021-05-30',
-      description: '- Developed and maintained features for a large-scale e-commerce platform with over 1 million monthly active users using React and Redux\n- Collaborated with UX/UI designers to implement responsive interfaces, improving mobile conversion rates by 10%\n- Wrote unit and integration tests, increasing code coverage from 70% to over 90% across the main application'
+      description: `- Developed and maintained features for a large-scale e-commerce platform with over 1 million monthly active users using React and Redux
+- Collaborated with UX/UI designers to implement responsive interfaces, improving mobile conversion rates by 10%
+- Wrote unit and integration tests, increasing code coverage from 70% to over 90% across the main application`
     }
   ],
   education: [
@@ -70,7 +74,9 @@ const initialData: ResumeSchema = {
     {
         id: simpleUuid(),
         name: 'Personal Portfolio Website',
-        description: '- Developed a personal portfolio website using Next.js and Tailwind CSS\n- Deployed the website on Vercel with a custom domain\n- Integrated a contact form using serverless functions'
+        description: `- Developed a personal portfolio website using Next.js and Tailwind CSS
+- Deployed the website on Vercel with a custom domain
+- Integrated a contact form using serverless functions`
     }
   ]
 };
@@ -88,14 +94,14 @@ export default function ResumeBuilder() {
   return (
     <Form {...form}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-4 md:py-8">
-        <div>
+        <div className="no-print">
           <ResumeForm />
         </div>
         <div className="relative">
           <div className="lg:sticky top-24">
             <div className="flex flex-col gap-4">
               <ResumeToolbar selectedTemplate={template} onTemplateChange={setTemplate} />
-              <div className="overflow-auto max-h-[calc(100vh-12rem)] rounded-lg shadow-2xl printable-area bg-card">
+              <div className="overflow-auto max-h-[calc(100vh-12rem)] rounded-lg shadow-2xl bg-card printable-area">
                 <ResumePreview formData={watchedData} template={template} />
               </div>
             </div>
