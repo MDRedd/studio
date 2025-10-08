@@ -59,7 +59,7 @@ export type ResumeSummaryOutput = z.infer<typeof ResumeSummaryOutputSchema>;
 
 
 // Schema for check-resume-ats.ts
-export const CheckResumeAtsInputSchema = z.object({
+const resumeSubSchemaForAts = z.object({
   summary: z.string().describe('The professional summary.'),
   experience: z
     .array(
@@ -80,6 +80,8 @@ export const CheckResumeAtsInputSchema = z.object({
   skills: z.array(z.object({ name: z.string() })).describe('The list of skills.'),
 });
 
+export const CheckResumeAtsInputSchema = resumeSubSchemaForAts;
+
 export type CheckResumeAtsInput = z.infer<typeof CheckResumeAtsInputSchema>;
 
 export const CheckResumeAtsOutputSchema = z.object({
@@ -89,3 +91,18 @@ export const CheckResumeAtsOutputSchema = z.object({
 });
 
 export type CheckResumeAtsOutput = z.infer<typeof CheckResumeAtsOutputSchema>;
+
+// Schema for job-fit-score.ts
+export const JobFitScoreInputSchema = z.object({
+  resume: resumeSubSchemaForAts,
+  jobDescription: z.string().describe('The full text of the job description.'),
+});
+
+export type JobFitScoreInput = z.infer<typeof JobFitScoreInputSchema>;
+
+export const JobFitScoreOutputSchema = z.object({
+  score: z.number().describe('The job fit score out of 100.'),
+  missingKeywords: z.array(z.string()).describe('Important keywords from the job description that are missing from the resume.'),
+});
+
+export type JobFitScoreOutput = z.infer<typeof JobFitScoreOutputSchema>;
