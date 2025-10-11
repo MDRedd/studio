@@ -81,7 +81,7 @@ const initialData: ResumeSchema = {
 };
 
 export default function ResumeBuilder() {
-  const [template, setTemplate] = useState('modern');
+  const [template, setTemplate] = useState('ats-friendly');
   const form = useForm<ResumeSchema>({
     resolver: zodResolver(resumeSchema),
     defaultValues: initialData,

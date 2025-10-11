@@ -4,7 +4,6 @@
 import { ResumeSchema } from "@/lib/schema";
 import { Briefcase, GraduationCap, Mail, Phone, MapPin, Link as LinkIcon, Lightbulb, Star, Github, FolderGit2 } from "lucide-react";
 import { Badge } from "./ui/badge";
-import { Separator } from "./ui/separator";
 import { cn } from "@/lib/utils";
 
 interface ResumePreviewProps {
@@ -13,21 +12,11 @@ interface ResumePreviewProps {
 }
 
 export function ResumePreview({ formData, template = 'classic' }: ResumePreviewProps) {
-  const { personalInfo, summary, experience, education, skills, projects } = formData;
-
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return '';
-    try {
-        return new Date(dateString).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-    } catch {
-        return dateString; // fallback for invalid date
-    }
-  };
-  
-  const templates: { [key: string]: React.FC<ResumePreviewProps> } = {
+  const templates: { [key: string]: React.FC<Omit<ResumePreviewProps, 'template'>> } = {
+    'ats-friendly': AtsFriendlyTemplate,
     classic: ClassicTemplate,
     modern: ModernTemplate,
-    elegant: ElegantTemplate,
+    creative: CreativeTemplate,
   };
 
   const SelectedTemplate = templates[template] || ClassicTemplate;
@@ -39,6 +28,97 @@ export function ResumePreview({ formData, template = 'classic' }: ResumePreviewP
   );
 }
 
+// 1. ATS-Friendly Template
+const AtsFriendlyTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formData }) => {
+    const { personalInfo, summary, experience, education, skills, projects } = formData;
+    const formatDate = (dateString?: string) => {
+      if (!dateString) return 'Present';
+      try {
+          return new Date(dateString).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      } catch { return dateString; }
+    };
+
+    return (
+        <div className="font-sans text-base">
+            <header className="text-center mb-6">
+                <h1 className="text-4xl font-bold">{personalInfo.name || "Your Name"}</h1>
+                <p className="text-sm mt-2">
+                    {personalInfo.phone} | {personalInfo.email} | {personalInfo.address}
+                    {personalInfo.link && ` | ${personalInfo.link}`}
+                    {personalInfo.github && ` | ${personalInfo.github}`}
+                </p>
+            </header>
+
+            <section className="mb-6">
+                <h2 className="text-xl font-bold uppercase border-b-2 border-black pb-1 mb-2">Summary</h2>
+                <p className="whitespace-pre-wrap">{summary || "Professional summary goes here."}</p>
+            </section>
+
+            {skills && skills.length > 0 && (
+                <section className="mb-6">
+                    <h2 className="text-xl font-bold uppercase border-b-2 border-black pb-1 mb-2">Skills</h2>
+                    <p>{skills.map(skill => skill.name).join(' | ')}</p>
+                </section>
+            )}
+
+            {experience && experience.length > 0 && (
+                <section className="mb-6">
+                    <h2 className="text-xl font-bold uppercase border-b-2 border-black pb-1 mb-2">Experience</h2>
+                    <div className="space-y-4">
+                        {experience.map((exp, index) => (
+                            <div key={exp.id || index}>
+                                <div className="flex justify-between items-baseline">
+                                    <h3 className="font-bold">{exp.title || "Job Title"}</h3>
+                                    <p className="text-sm font-normal">{formatDate(exp.startDate)} - {formatDate(exp.endDate)}</p>
+                                </div>
+                                <p className="italic">{exp.company || "Company Name"}</p>
+                                <ul className="mt-2 list-disc list-inside space-y-1 whitespace-pre-wrap">
+                                    {exp.description?.split('\n').map((line, i) => line.trim() && <li key={i}>{line.replace(/^- /, '')}</li>)}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {projects && projects.length > 0 && (
+                <section className="mb-6">
+                    <h2 className="text-xl font-bold uppercase border-b-2 border-black pb-1 mb-2">Projects</h2>
+                     <div className="space-y-4">
+                        {projects.map((project, index) => (
+                            <div key={project.id || index}>
+                                <h3 className="font-bold">{project.name || "Project Name"}</h3>
+                                <ul className="mt-2 list-disc list-inside text-sm space-y-1 whitespace-pre-wrap">
+                                    {project.description?.split('\n').map((line, i) => line.trim() && <li key={i}>{line.replace(/^- /, '')}</li>)}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
+            
+            {education && education.length > 0 && (
+                <section>
+                    <h2 className="text-xl font-bold uppercase border-b-2 border-black pb-1 mb-2">Education</h2>
+                    <div className="space-y-3">
+                        {education.map((edu, index) => (
+                            <div key={edu.id || index}>
+                                <div className="flex justify-between items-baseline">
+                                    <h3 className="font-bold">{edu.degree || "Degree"}</h3>
+                                    <p className="text-sm font-normal">{formatDate(edu.graduationDate)}</p>
+                                </div>
+                                <p className="italic">{edu.institution || "Institution Name"}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
+        </div>
+    );
+};
+
+
+// 2. Classic / Traditional Template
 const ClassicTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formData }) => {
     const { personalInfo, summary, experience, education, skills, projects } = formData;
     const formatDate = (dateString?: string) => {
@@ -55,11 +135,11 @@ const ClassicTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
             <header className="text-center mb-6">
                 <h1 className="text-4xl font-bold font-headline text-primary">{personalInfo.name || "Your Name"}</h1>
                 <div className="flex justify-center items-center gap-x-4 gap-y-1 text-xs text-muted-foreground mt-2 flex-wrap">
-                {personalInfo.email && <div className="flex items-center gap-1"><Mail size={12} /> {personalInfo.email}</div>}
-                {personalInfo.phone && <div className="flex items-center gap-1"><Phone size={12} /> {personalInfo.phone}</div>}
-                {personalInfo.address && <div className="flex items-center gap-1"><MapPin size={12} /> {personalInfo.address}</div>}
-                {personalInfo.link && <a href={personalInfo.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-primary"><LinkIcon size={12} /> LinkedIn</a>}
-                {personalInfo.github && <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-primary"><Github size={12} /> GitHub</a>}
+                    {personalInfo.email && <div className="flex items-center gap-1"><Mail size={12} /> {personalInfo.email}</div>}
+                    {personalInfo.phone && <div className="flex items-center gap-1"><Phone size={12} /> {personalInfo.phone}</div>}
+                    {personalInfo.address && <div className="flex items-center gap-1"><MapPin size={12} /> {personalInfo.address}</div>}
+                    {personalInfo.link && <a href={personalInfo.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-primary"><LinkIcon size={12} /> LinkedIn</a>}
+                    {personalInfo.github && <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-primary"><Github size={12} /> GitHub</a>}
                 </div>
             </header>
 
@@ -73,89 +153,90 @@ const ClassicTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
 
             <div className="grid grid-cols-3 gap-8">
                 <div className="col-span-2">
-                {experience && experience.length > 0 && (
-                    <section className="mb-6">
-                    <h2 className="flex items-center gap-2 text-xl font-bold font-headline border-b-2 border-primary/50 pb-1 mb-3 text-primary">
-                        <Briefcase />
-                        Experience
-                    </h2>
-                    <div className="space-y-4">
-                        {experience.map((exp, index) => (
-                        <div key={exp.id || index}>
-                            <div className="flex justify-between items-baseline">
-                                <h3 className="font-bold font-headline">{exp.title || "Job Title"}</h3>
-                                <div className="text-xs text-muted-foreground">
-                                    {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
+                    {experience && experience.length > 0 && (
+                        <section className="mb-6">
+                        <h2 className="flex items-center gap-2 text-xl font-bold font-headline border-b-2 border-primary/50 pb-1 mb-3 text-primary">
+                            <Briefcase />
+                            Experience
+                        </h2>
+                        <div className="space-y-4">
+                            {experience.map((exp, index) => (
+                            <div key={exp.id || index}>
+                                <div className="flex justify-between items-baseline">
+                                    <h3 className="font-bold font-headline">{exp.title || "Job Title"}</h3>
+                                    <div className="text-xs text-muted-foreground">
+                                        {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
+                                    </div>
                                 </div>
+                                <p className="text-muted-foreground italic">{exp.company || "Company Name"}</p>
+                                <ul className="mt-2 list-disc list-inside text-sm space-y-1 whitespace-pre-wrap">
+                                    {exp.description?.split('\n').map((line, i) => line.trim() && <li key={i}>{line.replace(/^- /, '')}</li>)}
+                                </ul>
                             </div>
-                            <p className="text-muted-foreground italic">{exp.company || "Company Name"}</p>
-                            <ul className="mt-2 list-disc list-inside text-sm space-y-1 whitespace-pre-wrap">
-                                {exp.description?.split('\n').map((line, i) => line.trim() && <li key={i}>{line.replace(/^- /, '')}</li>)}
-                            </ul>
+                            ))}
                         </div>
-                        ))}
-                    </div>
-                    </section>
-                )}
-                {projects && projects.length > 0 && (
-                    <section className="mb-6">
-                    <h2 className="flex items-center gap-2 text-xl font-bold font-headline border-b-2 border-primary/50 pb-1 mb-3 text-primary">
-                        <FolderGit2 />
-                        Projects
-                    </h2>
-                    <div className="space-y-4">
-                        {projects.map((project, index) => (
-                        <div key={project.id || index}>
-                            <h3 className="font-bold font-headline">{project.name || "Project Name"}</h3>
-                            <ul className="mt-2 list-disc list-inside text-sm space-y-1 whitespace-pre-wrap">
-                                {project.description?.split('\n').map((line, i) => line.trim() && <li key={i}>{line.replace(/^- /, '')}</li>)}
-                            </ul>
+                        </section>
+                    )}
+                    {projects && projects.length > 0 && (
+                        <section className="mb-6">
+                        <h2 className="flex items-center gap-2 text-xl font-bold font-headline border-b-2 border-primary/50 pb-1 mb-3 text-primary">
+                            <FolderGit2 />
+                            Projects
+                        </h2>
+                        <div className="space-y-4">
+                            {projects.map((project, index) => (
+                            <div key={project.id || index}>
+                                <h3 className="font-bold font-headline">{project.name || "Project Name"}</h3>
+                                <ul className="mt-2 list-disc list-inside text-sm space-y-1 whitespace-pre-wrap">
+                                    {project.description?.split('\n').map((line, i) => line.trim() && <li key={i}>{line.replace(/^- /, '')}</li>)}
+                                </ul>
+                            </div>
+                            ))}
                         </div>
-                        ))}
-                    </div>
-                    </section>
-                )}
+                        </section>
+                    )}
                 </div>
 
                 <div className="col-span-1">
-                {education && education.length > 0 && (
-                    <section className="mb-6">
-                    <h2 className="flex items-center gap-2 text-xl font-bold font-headline border-b-2 border-primary/50 pb-1 mb-3 text-primary">
-                        <GraduationCap />
-                        Education
-                    </h2>
-                    <div className="space-y-3">
-                        {education.map((edu, index) => (
-                        <div key={edu.id || index}>
-                            <h3 className="font-bold font-headline">{edu.institution || "Institution Name"}</h3>
-                            <p className="text-muted-foreground">{edu.degree || "Degree"}</p>
-                            {edu.major && <p className="text-muted-foreground text-xs">{edu.major}</p>}
-                            <p className="text-xs text-muted-foreground mt-1">{formatDate(edu.graduationDate)}</p>
+                    {education && education.length > 0 && (
+                        <section className="mb-6">
+                        <h2 className="flex items-center gap-2 text-xl font-bold font-headline border-b-2 border-primary/50 pb-1 mb-3 text-primary">
+                            <GraduationCap />
+                            Education
+                        </h2>
+                        <div className="space-y-3">
+                            {education.map((edu, index) => (
+                            <div key={edu.id || index}>
+                                <h3 className="font-bold font-headline">{edu.institution || "Institution Name"}</h3>
+                                <p className="text-muted-foreground">{edu.degree || "Degree"}</p>
+                                {edu.major && <p className="text-muted-foreground text-xs">{edu.major}</p>}
+                                <p className="text-xs text-muted-foreground mt-1">{formatDate(edu.graduationDate)}</p>
+                            </div>
+                            ))}
                         </div>
-                        ))}
-                    </div>
-                    </section>
-                )}
+                        </section>
+                    )}
 
-                {skills && skills.length > 0 && (
-                    <section>
-                    <h2 className="flex items-center gap-2 text-xl font-bold font-headline border-b-2 border-primary/50 pb-1 mb-3 text-primary">
-                        <Star />
-                        Skills
-                    </h2>
-                    <div className="flex flex-wrap gap-2">
-                        {skills.map((skill, index) => (
-                        skill.name && <Badge key={skill.id || index} variant="secondary">{skill.name}</Badge>
-                        ))}
-                    </div>
-                    </section>
-                )}
+                    {skills && skills.length > 0 && (
+                        <section>
+                        <h2 className="flex items-center gap-2 text-xl font-bold font-headline border-b-2 border-primary/50 pb-1 mb-3 text-primary">
+                            <Star />
+                            Skills
+                        </h2>
+                        <div className="flex flex-wrap gap-2">
+                            {skills.map((skill, index) => (
+                            skill.name && <Badge key={skill.id || index} variant="secondary">{skill.name}</Badge>
+                            ))}
+                        </div>
+                        </section>
+                    )}
                 </div>
             </div>
         </>
     );
 };
 
+// 3. Modern Minimalist Template
 const ModernTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formData }) => {
     const { personalInfo, summary, experience, education, skills, projects } = formData;
     const formatDate = (dateString?: string) => {
@@ -257,7 +338,8 @@ const ModernTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formDa
     );
 };
 
-const ElegantTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formData }) => {
+// 4. Creative / Visual Template
+const CreativeTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formData }) => {
     const { personalInfo, summary, experience, education, skills, projects } = formData;
     const formatDate = (dateString?: string, format: 'short' | 'long' = 'long') => {
       if (!dateString) return 'Present';
@@ -334,7 +416,7 @@ const ElegantTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
                                 <span>{formatDate(exp.startDate, 'short')} - {formatDate(exp.endDate, 'short')}</span>
                             </div>
                             <div className="mt-2 text-sm leading-relaxed whitespace-pre-wrap">
-                                {exp.description}
+                                {exp.description?.split('\n').map((line, i) => line.trim() && <p key={i}>{line}</p>)}
                             </div>
                         </div>
                         ))}
@@ -349,7 +431,7 @@ const ElegantTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
                             <div key={project.id || index}>
                                 <h3 className="text-md font-bold text-gray-800">{project.name || "Project Name"}</h3>
                                 <div className="mt-2 text-sm leading-relaxed whitespace-pre-wrap">
-                                    {project.description}
+                                     {project.description?.split('\n').map((line, i) => line.trim() && <p key={i}>{line}</p>)}
                                 </div>
                             </div>
                             ))}
