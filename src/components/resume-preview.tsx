@@ -33,13 +33,18 @@ export function ResumePreview({ formData, template = 'classic' }: ResumePreviewP
 const formatDate = (dateString?: string, format: 'short' | 'long' | 'year' = 'long') => {
     if (!dateString) return 'Present';
     try {
+        const date = new Date(dateString);
+        // Add time zone offset to prevent off-by-one day errors
+        const userTimezoneOffset = date.getTimezoneOffset() * 60000;
+        const correctedDate = new Date(date.getTime() + userTimezoneOffset);
+
         const options: Intl.DateTimeFormatOptions = { year: 'numeric' };
         if (format === 'long') {
             options.month = 'long';
         } else if (format === 'short') {
             options.month = 'short';
         }
-        return new Date(dateString).toLocaleDateString('en-US', options);
+        return correctedDate.toLocaleDateString('en-US', options);
     } catch {
         return dateString;
     }

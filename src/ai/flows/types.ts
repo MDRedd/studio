@@ -49,21 +49,15 @@ const fullResumeSchema = z.object({
 
 // Schema for generate-resume-content.ts
 export const GenerateResumeContentInputSchema = fullResumeSchema.extend({
-  targetExperienceIndex: z.number().optional().describe('The index of the experience to generate a description for.'),
+  targetExperienceIndex: z.number().describe('The index of the experience to generate a description for.'),
 }).describe('User provided details for resume generation.');
 
 export type GenerateResumeContentInput = z.infer<typeof GenerateResumeContentInputSchema>;
 
 export const GenerateResumeContentOutputSchema = z.object({
-  educationSuggestions: z.array(
-    z.string().describe('AI-powered suggestions for the education section.')
-  ).optional().describe('AI suggestions for education.'),
   experienceSuggestions: z.array(
     z.string().describe('AI-powered suggestions for the experience section.')
   ).optional().describe('AI suggestions for experience.'),
-  skillsSuggestions: z.array(
-    z.string().describe('AI-powered suggestions for the skills section.')
-  ).optional().describe('AI suggestions for skills.'),
 }).describe('AI-powered resume content suggestions.');
 
 export type GenerateResumeContentOutput = z.infer<typeof GenerateResumeContentOutputSchema>;
