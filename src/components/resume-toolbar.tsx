@@ -20,6 +20,7 @@ export function ResumeToolbar({ selectedTemplate, onTemplateChange }: ResumeTool
                     <SelectValue placeholder="Select Template" />
                 </SelectTrigger>
                 <SelectContent>
+                    <SelectItem value="sidebar">Sidebar</SelectItem>
                     <SelectItem value="ats-friendly">ATS-Friendly</SelectItem>
                     <SelectItem value="classic">Classic</SelectItem>
                     <SelectItem value="modern">Modern</SelectItem>

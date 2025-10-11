@@ -18,6 +18,7 @@ export function ResumePreview({ formData, template = 'classic' }: ResumePreviewP
     'modern': ModernTemplate,
     'creative': CreativeTemplate,
     'skills-first': SkillsFirstTemplate,
+    'sidebar': SidebarTemplate,
   };
 
   const SelectedTemplate = templates[template] || ClassicTemplate;
@@ -489,3 +490,105 @@ const SkillsFirstTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ f
     );
 };
 
+// 6. Sidebar Template
+const SidebarTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formData }) => {
+    const { personalInfo, summary, experience, education, skills, projects } = formData;
+  
+    return (
+      <div className="font-sans grid grid-cols-12 bg-white text-gray-800 min-h-[29.7cm]">
+        {/* Sidebar */}
+        <div className="col-span-4 bg-gray-800 text-white p-8">
+          <header className="text-left mb-10">
+            <h1 className="text-4xl font-bold tracking-tight text-white">{personalInfo.name || "Your Name"}</h1>
+            <p className="mt-2 text-lg text-gray-300">{experience[0]?.title || 'Professional Title'}</p>
+          </header>
+  
+          {/* Contact */}
+          <section className="mb-8">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Contact</h2>
+            <div className="space-y-3 text-sm">
+              {personalInfo.phone && <div className="flex items-center gap-2"><Phone size={14} /><span>{personalInfo.phone}</span></div>}
+              {personalInfo.email && <div className="flex items-center gap-2"><Mail size={14} /><span>{personalInfo.email}</span></div>}
+              {personalInfo.address && <div className="flex items-center gap-2"><MapPin size={14} /><span>{personalInfo.address}</span></div>}
+              {personalInfo.link && <div className="flex items-center gap-2"><LinkIcon size={14} /><a href={personalInfo.link} className="hover:underline">LinkedIn</a></div>}
+              {personalInfo.github && <div className="flex items-center gap-2"><Github size={14} /><a href={personalInfo.github} className="hover:underline">GitHub</a></div>}
+            </div>
+          </section>
+  
+          {/* Education */}
+          {education && education.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Education</h2>
+              <div className="space-y-4">
+                {education.map((edu, index) => (
+                  <div key={edu.id || index}>
+                    <h3 className="font-semibold text-white">{edu.institution || "Institution Name"}</h3>
+                    <p className="text-sm text-gray-300">{edu.degree || "Degree"}</p>
+                    <p className="text-xs text-gray-400 mt-0.5">{formatDate(edu.graduationDate, 'year')}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+  
+          {/* Skills */}
+          {skills && skills.length > 0 && (
+            <section>
+              <h2 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Skills</h2>
+              <ul className="space-y-1 text-sm list-disc list-inside">
+                {skills.map((skill, index) => (
+                  skill.name && <li key={skill.id || index}>{skill.name}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+  
+        {/* Main Content */}
+        <div className="col-span-8 p-8">
+          {summary && (
+            <section className="mb-8">
+              <h2 className="text-xl font-bold text-gray-700 border-b-2 border-gray-200 pb-2 mb-4">Professional Summary</h2>
+              <p className="text-sm leading-relaxed">{summary}</p>
+            </section>
+          )}
+  
+          {experience && experience.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-xl font-bold text-gray-700 border-b-2 border-gray-200 pb-2 mb-4">Work Experience</h2>
+              <div className="space-y-6">
+                {experience.map((exp, index) => (
+                  <div key={exp.id || index}>
+                    <div className="flex justify-between items-baseline">
+                      <h3 className="text-lg font-semibold text-gray-800">{exp.title || "Job Title"}</h3>
+                      <p className="text-sm text-gray-500">{formatDate(exp.startDate, 'short')} - {formatDate(exp.endDate, 'short')}</p>
+                    </div>
+                    <p className="italic text-md text-gray-600 mb-2">{exp.company || "Company Name"}</p>
+                    <ul className="list-disc list-inside text-sm text-gray-700 space-y-1 whitespace-pre-wrap">
+                      {exp.description?.split('\n').map((line, i) => line.trim() && <li key={i}>{line.replace(/^- /, '')}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+  
+          {projects && projects.length > 0 && (
+            <section>
+              <h2 className="text-xl font-bold text-gray-700 border-b-2 border-gray-200 pb-2 mb-4">Projects</h2>
+              <div className="space-y-6">
+                {projects.map((project, index) => (
+                  <div key={project.id || index}>
+                    <h3 className="text-lg font-semibold text-gray-800">{project.name || "Project Name"}</h3>
+                    <ul className="list-disc list-inside text-sm text-gray-700 space-y-1 whitespace-pre-wrap mt-2">
+                      {project.description?.split('\n').map((line, i) => line.trim() && <li key={i}>{line.replace(/^- /, '')}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </div>
+    );
+};
