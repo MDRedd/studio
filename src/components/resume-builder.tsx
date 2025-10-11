@@ -54,8 +54,9 @@ const initialData: ResumeSchema = {
       id: simpleUuid(),
       institution: 'State University',
       degree: 'B.S. in Computer Science',
-      major: '',
-      graduationDate: '2019-01-10'
+      major: 'Computer Science',
+      graduationDate: '2019-01-10',
+      description: ''
     }
   ],
   skills: [
@@ -80,7 +81,7 @@ const initialData: ResumeSchema = {
 };
 
 export default function ResumeBuilder() {
-  const [template, setTemplate] = useState('classic');
+  const [template, setTemplate] = useState('modern');
   const form = useForm<ResumeSchema>({
     resolver: zodResolver(resumeSchema),
     defaultValues: initialData,

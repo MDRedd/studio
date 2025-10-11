@@ -1,3 +1,4 @@
+
 import { z } from "zod";
 
 export const experienceSchema = z.object({
@@ -15,6 +16,7 @@ export const educationSchema = z.object({
   degree: z.string().min(1, "Degree is required"),
   major: z.string().optional(),
   graduationDate: z.string().min(1, "Graduation date is required"),
+  description: z.string().optional(),
 });
 
 export const skillSchema = z.object({
@@ -41,7 +43,7 @@ export const resumeSchema = z.object({
   experience: z.array(experienceSchema),
   education: z.array(educationSchema),
   skills: z.array(skillSchema),
-  projects: z.array(projectSchema),
+  projects: z.array(projectSchema).optional(),
 });
 
 export type ResumeSchema = z.infer<typeof resumeSchema>;

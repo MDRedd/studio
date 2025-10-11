@@ -44,6 +44,11 @@ const jobFitScorePrompt = ai.definePrompt({
   {{#each resume.skills}}
   - {{name}}
   {{/each}}
+  
+  Projects:
+  {{#each resume.projects}}
+  - {{name}}: {{description}}
+  {{/each}}
 
   Job Description:
   {{{jobDescription}}}

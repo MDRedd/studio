@@ -5,7 +5,7 @@ import { generateResumeContent } from '@/ai/flows/generate-resume-content';
 import { generateResumeSummary } from '@/ai/flows/resume-summary';
 import { checkResumeAts } from '@/ai/flows/check-resume-ats';
 import { jobFitScore } from '@/ai/flows/job-fit-score';
-import { ResumeSchema } from './schema';
+import { resumeSchema, ResumeSchema } from './schema';
 import { z } from 'zod';
 import { CheckResumeAtsInput, CheckResumeAtsOutput, GenerateResumeContentInput, GenerateResumeContentOutput, ResumeSummaryInput, JobFitScoreInput, JobFitScoreOutput } from '@/ai/flows/types';
 
@@ -14,6 +14,7 @@ const generateSummaryAction = z.object({
   experience: z.string(),
   education: z.string(),
   skills: z.string(),
+  projects: z.string().optional(),
 });
 
 export async function generateSummary(input: z.infer<typeof generateSummaryAction>): Promise<string | null> {
@@ -50,6 +51,7 @@ export async function checkAtsScore(resumeData: ResumeSchema): Promise<AtsCheckR
             experience: resumeData.experience.map(e => ({ title: e.title, description: e.description })),
             education: resumeData.education.map(e => ({ degree: e.degree, major: e.major })),
             skills: resumeData.skills.map(s => ({ name: s.name })),
+            projects: resumeData.projects?.map(p => ({ name: p.name, description: p.description })),
         };
         const result = await checkResumeAts(input);
         return result;
@@ -69,6 +71,7 @@ export async function checkJobFit(resumeData: ResumeSchema, jobDescription: stri
                 experience: resumeData.experience.map(e => ({ title: e.title, description: e.description })),
                 education: resumeData.education.map(e => ({ degree: e.degree, major: e.major })),
                 skills: resumeData.skills.map(s => ({ name: s.name })),
+                projects: resumeData.projects?.map(p => ({ name: p.name, description: p.description })),
             },
             jobDescription: jobDescription,
         };

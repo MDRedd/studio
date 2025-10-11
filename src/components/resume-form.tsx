@@ -48,11 +48,12 @@ export function ResumeForm() {
 
   const handleGenerateSummary = async () => {
     setSummaryLoading(true);
-    const { experience, education, skills } = form.getValues();
+    const { experience, education, skills, projects } = form.getValues();
     const summaryInput = {
       experience: experience.map(e => e.description).join('\n'),
       education: education.map(e => `${e.degree} in ${e.major} from ${e.institution}`).join('\n'),
       skills: skills.map(s => s.name).join(', '),
+      projects: projects.map(p => p.name + ": " + p.description).join('\n'),
     };
 
     try {
@@ -274,7 +275,7 @@ export function ResumeForm() {
               )} />
             </div>
           ))}
-          <Button type="button" variant="outline" onClick={() => appendEducation({ id: simpleUuid(), institution: '', degree: '', major: '', graduationDate: '' })}><Plus className="mr-2 h-4 w-4" /> Add Education</Button>
+          <Button type="button" variant="outline" onClick={() => appendEducation({ id: simpleUuid(), institution: '', degree: '', major: '', graduationDate: '', description: '' })}><Plus className="mr-2 h-4 w-4" /> Add Education</Button>
         </AccordionContent>
       </AccordionItem>
 
