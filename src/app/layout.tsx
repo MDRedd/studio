@@ -4,7 +4,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'ResumeAI',
+  title: 'MDR ResumeAI',
   description: 'Craft your perfect resume with the power of AI.',
 };
 
