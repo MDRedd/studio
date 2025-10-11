@@ -21,12 +21,19 @@ const prompt = ai.definePrompt({
   output: {schema: ResumeSummaryOutputSchema},
   prompt: `You are an expert resume writer. Generate a concise and impactful summary of the candidate's resume based on the provided experience, education, skills and projects.
 
-Experience: {{{experience}}}
-Education: {{{education}}}
-Skills: {{{skills}}}
-Projects: {{{projects}}}
+Experience:
+{{{experience}}}
 
-Summary:`,
+Education:
+{{{education}}}
+
+Skills:
+{{{skills}}}
+
+Projects:
+{{{projects}}}
+
+Generate a professional summary based on the information above.`,
 });
 
 const resumeSummaryFlow = ai.defineFlow(

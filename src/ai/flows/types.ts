@@ -71,10 +71,10 @@ export type GenerateResumeContentOutput = z.infer<typeof GenerateResumeContentOu
 
 // Schema for resume-summary.ts
 export const ResumeSummaryInputSchema = z.object({
-  experience: z.string().describe('Description of the professional experience of the candidate'),
-  education: z.string().describe('Description of the education of the candidate'),
-  skills: z.string().describe('List of skills of the candidate'),
-  projects: z.string().optional().describe('List of projects of the candidate'),
+    experience: z.string().describe('Description of the professional experience of the candidate'),
+    education: z.string().describe('Description of the education of the candidate'),
+    skills: z.string().describe('List of skills of the candidate'),
+    projects: z.string().optional().describe('List of projects of the candidate'),
 });
 export type ResumeSummaryInput = z.infer<typeof ResumeSummaryInputSchema>;
 
