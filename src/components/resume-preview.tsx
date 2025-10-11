@@ -495,7 +495,7 @@ const SidebarTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
     const { personalInfo, summary, experience, education, skills, projects } = formData;
   
     return (
-      <div className="font-sans grid grid-cols-12 bg-white text-gray-800 min-h-[29.7cm]">
+      <div className={cn("font-sans grid grid-cols-12 bg-white text-gray-800 min-h-[29.7cm]", "print-friendly-sidebar")}>
         {/* Sidebar */}
         <div className="col-span-4 bg-gray-800 text-white p-8">
           <header className="text-left mb-10">
