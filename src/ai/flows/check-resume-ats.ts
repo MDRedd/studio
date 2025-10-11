@@ -43,6 +43,11 @@ const atsCheckPrompt = ai.definePrompt({
   {{#each skills}}
   - {{name}}
   {{/each}}
+
+  Projects:
+  {{#each projects}}
+  - {{name}}: {{description}}
+  {{/each}}
   `,
 });
 
