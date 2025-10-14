@@ -50,10 +50,10 @@ export function ResumeForm() {
     setSummaryLoading(true);
     const { experience, education, skills, projects } = form.getValues();
     const summaryInput = {
-      experience: experience.map(e => e.description).join('\n'),
-      education: education.map(e => `${e.degree} in ${e.major} from ${e.institution}`).join('\n'),
+      experience: experience.map(e => `${e.title} at ${e.company}:\n${e.description}`).join('\n\n'),
+      education: education.map(e => `${e.degree} in ${e.major || 'N/A'} from ${e.institution}`).join('\n'),
       skills: skills.map(s => s.name).join(', '),
-      projects: projects.map(p => p.name + ": " + p.description).join('\n'),
+      projects: projects?.map(p => `${p.name}:\n${p.description}`).join('\n\n') || '',
     };
 
     try {
@@ -62,10 +62,11 @@ export function ResumeForm() {
         form.setValue('summary', result);
         toast({ title: "Summary Generated", description: "AI-powered summary has been added." });
       } else {
-        throw new Error();
+        throw new Error("Failed to get summary from AI");
       }
     } catch (error) {
       toast({ variant: 'destructive', title: "Error", description: "Failed to generate summary." });
+      console.error(error);
     } finally {
       setSummaryLoading(false);
     }
