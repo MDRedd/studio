@@ -19,7 +19,7 @@ const simpleUuid = () => {
 
 const initialData: ResumeSchema = {
   personalInfo: {
-    name: 'Jane Doe',
+    name: 'Mulapareddygari Drona Reddy',
     email: 'jane.doe@email.com',
     phone: '123-456-7890',
     address: '123 Tech Lane, Silicon Valley, CA',

@@ -504,7 +504,7 @@ const SidebarTemplate: React.FC<Omit<ResumePreviewProps, 'template'>> = ({ formD
         {/* Sidebar */}
         <div className="col-span-4 bg-gray-800 text-white p-8">
           <header className="text-left mb-10">
-            <h1 className="text-4xl font-bold tracking-tight text-white">{personalInfo.name || "Your Name"}</h1>
+            <h1 className="text-4xl font-bold tracking-tight text-white break-words">{personalInfo.name || "Your Name"}</h1>
             <p className="mt-2 text-lg text-gray-300">{experience[0]?.title || 'Professional Title'}</p>
           </header>
   
