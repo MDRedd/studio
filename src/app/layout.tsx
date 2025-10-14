@@ -24,7 +24,6 @@ export default function RootLayout({
         height: 297mm;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
-        font-size: 10pt;
       }
       body * {
         visibility: hidden;
@@ -38,10 +37,9 @@ export default function RootLayout({
         top: 0;
         width: 100%;
         height: auto;
-        padding: 15mm;
+        padding: 10mm; /* Reduced padding */
         margin: 0;
         box-sizing: border-box;
-        transform: scale(1);
         background-color: white !important;
         box-shadow: none !important;
         border: none !important;
@@ -53,6 +51,9 @@ export default function RootLayout({
         height: auto !important;
         overflow: visible !important;
       }
+      .template-sidebar.print-friendly-sidebar {
+        min-height: 0 !important;
+      }
       .template-sidebar.print-friendly-sidebar .col-span-4 {
         width: 33.333333%;
         float: left;
@@ -62,26 +63,28 @@ export default function RootLayout({
         float: left;
       }
       .template-sidebar, .template-modern, .template-creative, .template-ats-friendly, .template-classic, .template-skills-first {
-        font-size: 8pt; /* Reduced base font size */
+        font-size: 8pt !important; /* Reduced base font size */
       }
-      h1 { font-size: 22pt; }
-      h2 { font-size: 14pt; }
-      h3 { font-size: 10pt; }
-      ul { padding-left: 1rem; }
+      h1, .text-4xl, .text-5xl { font-size: 20pt !important; }
+      h2, .text-2xl { font-size: 13pt !important; }
+      h3, .text-lg { font-size: 9pt !important; }
+      .text-sm, p, ul, div { font-size: 8pt !important; line-height: 1.2 !important; }
+      .text-xs { font-size: 7pt !important; }
       .p-8 { padding: 0 !important; }
-      .mb-1, .my-1 { margin-bottom: 0.2rem; margin-top: 0.2rem; }
-      .mb-2, .my-2 { margin-bottom: 0.3rem; margin-top: 0.3rem; }
-      .mb-3, .my-3 { margin-bottom: 0.4rem; margin-top: 0.4rem; }
-      .mb-4, .my-4 { margin-bottom: 0.5rem; margin-top: 0.5rem; }
-      .mb-6, .my-6 { margin-bottom: 0.8rem; margin-top: 0.8rem; }
-      .mb-8, .my-8 { margin-bottom: 1rem; margin-top: 1rem; }
-      .mb-10, .my-10 { margin-bottom: 1.2rem; margin-top: 1.2rem; }
-      .space-y-1 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.1rem; }
-      .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.2rem; }
-      .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.4rem; }
-      .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.6rem; }
-      .space-y-5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.8rem; }
-      .space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+      .mb-1, .my-1 { margin-bottom: 0.1rem !important; margin-top: 0.1rem !important; }
+      .mb-2, .my-2 { margin-bottom: 0.2rem !important; margin-top: 0.2rem !important; }
+      .mb-3, .my-3 { margin-bottom: 0.3rem !important; margin-top: 0.3rem !important; }
+      .mb-4, .my-4 { margin-bottom: 0.4rem !important; margin-top: 0.4rem !important; }
+      .mb-6, .my-6 { margin-bottom: 0.6rem !important; margin-top: 0.6rem !important; }
+      .mb-8, .my-8 { margin-bottom: 0.8rem !important; margin-top: 0.8rem !important; }
+      .mb-10, .my-10 { margin-bottom: 1rem !important; margin-top: 1rem !important; }
+      ul { padding-left: 1rem !important; }
+      .space-y-1 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.1rem !important; }
+      .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.2rem !important; }
+      .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.3rem !important; }
+      .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.4rem !important; }
+      .space-y-5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.6rem !important; }
+      .space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.8rem !important; }
     }
   `;
 
