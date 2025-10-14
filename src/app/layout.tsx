@@ -37,8 +37,8 @@ export default function RootLayout({
         top: 0;
         width: 100%;
         height: auto;
-        padding: 10mm; /* Reduced padding */
-        margin: 0;
+        padding: 10mm !important;
+        margin: 0 !important;
         box-sizing: border-box;
         background-color: white !important;
         box-shadow: none !important;
@@ -65,7 +65,7 @@ export default function RootLayout({
       .template-sidebar, .template-modern, .template-creative, .template-ats-friendly, .template-classic, .template-skills-first {
         font-size: 8pt !important; /* Reduced base font size */
       }
-      h1, .text-4xl, .text-5xl { font-size: 20pt !important; }
+      h1, .text-4xl, .text-5xl { font-size: 18pt !important; }
       h2, .text-2xl { font-size: 13pt !important; }
       h3, .text-lg { font-size: 9pt !important; }
       .text-sm, p, ul, div { font-size: 8pt !important; line-height: 1.2 !important; }
